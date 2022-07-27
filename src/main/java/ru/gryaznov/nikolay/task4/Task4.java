@@ -19,9 +19,11 @@ import java.util.*;
 public class Task4 {
     /**
      * Метод для сортировки csv файла в оперативной памяти.
-     * @param inpFilePath - Путь к файлу, который нужно отсортировать.
+     * Сложность данного решения O(n^2), из всех сложность берётся самая, здесь это метод split O(m * n) в цикле while 0(n).
+     *
+     * @param inpFilePath    - Путь к файлу, который нужно отсортировать.
      * @param separatingMark - Символ, разделяющий данные в строке cvs файла.
-     * @param outFilePath -  Путь к файлу, который нужен для вывода отсортированных данных.
+     * @param outFilePath    -  Путь к файлу, который нужен для вывода отсортированных данных.
      */
     public static void sortCsvFileInMemory(String inpFilePath, String separatingMark, String outFilePath) {
         BufferedReader bufferedReader = null;
@@ -36,7 +38,7 @@ public class Task4 {
             firstCsvString = bufferedReader.readLine();
             String line;
             while ((line = bufferedReader.readLine()) != null) {
-                String key =line.split(separatingMark)[0];
+                String key = line.split(separatingMark)[0];
                 List<String> l = map.get(key);
                 if (l == null) {
                     l = new LinkedList<>();
@@ -45,13 +47,13 @@ public class Task4 {
                 l.add(line);
             }
             bufferedReader.close();
-        } catch (IOException e){
+        } catch (IOException e) {
             System.out.println("An I/O exception occurred while reading a file. " + e);
         }
 
         try {
             FileWriter fileWriter = new FileWriter(outFilePath);
-            fileWriter.write(firstCsvString+"\n");
+            fileWriter.write(firstCsvString + "\n");
             for (List<String> list : map.values()) {
                 for (String str : list) {
                     fileWriter.write(str);
@@ -59,18 +61,20 @@ public class Task4 {
                 }
             }
             fileWriter.close();
-        } catch (IOException e){
+        } catch (IOException e) {
             System.out.println("An I/O exception occurred while writing to a file. " + e);
         }
     }
 
     /**
      * Метод для сортировки csv файла.
-     * @param inpFilePath - Путь к файлу, который нужно отсортировать.
+     * Библиотека использует сортировку слиянием, что значить что сложность O(n log(n))
+     *
+     * @param inpFilePath    - Путь к файлу, который нужно отсортировать.
      * @param separatingMark - Символ, разделяющий данные в строке cvs файла.
-     * @param outFilePath -  Путь к файлу, который нужен для вывода отсортированных данных.
+     * @param outFilePath    -  Путь к файлу, который нужен для вывода отсортированных данных.
      */
-    public static void sortCsvFile(String inpFilePath, char separatingMark, String outFilePath){
+    public static void sortCsvFile(String inpFilePath, char separatingMark, String outFilePath) {
         Serializer<CSVRecord> serializer = Serializer.csv(
                 CSVFormat
                         .newFormat(separatingMark)

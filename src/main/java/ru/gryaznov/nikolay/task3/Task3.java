@@ -10,12 +10,12 @@ public class Task3 {
      * Метод выводящий числа от 1 до 100. При числах кратным 3 выводит Fizz, при числах кратным 5 выводит Buzz,
      * если число кратно 3 и 5, то выводит FizzBuzz
      */
-    public static void numberOutput(){
+    public static void numberOutput() {
         String currentValue;
-        for (int i = 1; i <=100 ; i++) {
-            currentValue="";
-            if (i % 3 == 0) currentValue+="Fizz";
-            if (i % 5 == 0) currentValue+="Buzz";
+        for (int i = 1; i <= 100; i++) {
+            currentValue = "";
+            if (i % 3 == 0) currentValue += "Fizz";
+            if (i % 5 == 0) currentValue += "Buzz";
             if (currentValue.equals("")) currentValue = String.valueOf(i);
             System.out.println(currentValue);
         }
