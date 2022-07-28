@@ -67,6 +67,33 @@ public class Task4 {
     }
 
     /**
+     * Метод для сортировки большого csv файла c использованием класса LargeCsvFileSorter.
+     *
+     * @param inpFilePath    - Путь до файла, который нужно отсортировать.
+     * @param outFilePath    - Путь до файла, в который запишутся отсортированные данные.
+     * @param tempDirectory  - Путь до места, где будет исполняться алгоритм.
+     * @param separatingMark - Символ, разделяющий данные в строке cvs файла.
+     */
+    public static void csvFileSorting(String inpFilePath, String outFilePath, String tempDirectory, String separatingMark) {
+        LargeCsvFileSorter streamSorter = new LargeCsvFileSorter(separatingMark);
+        streamSorter.setTempDirectory(tempDirectory);
+        InputStream targetStream = null;
+        try {
+            targetStream = new FileInputStream(inpFilePath);
+        } catch (FileNotFoundException e) {
+            System.out.println("Ее не получилось перевести (начало)");
+        }
+        streamSorter.splitChunks(targetStream);
+        OutputStream outputStream = null;
+        try {
+            outputStream = new FileOutputStream(outFilePath);
+        } catch (FileNotFoundException e) {
+            System.out.println("Ее не получилось перевести (конец)");
+        }
+        streamSorter.mergeChunks(outputStream);
+    }
+
+    /**
      * Метод для сортировки csv файла.
      * Библиотека использует сортировку слиянием, что значить что сложность O(n log(n))
      *
